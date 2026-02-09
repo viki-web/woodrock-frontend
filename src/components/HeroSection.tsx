@@ -34,7 +34,7 @@ const HeroSection = ({ data }: { data: HomepageData }) => {
                     </div>
                 </div>
             </div>
-            <div className="hero-image-wrapper">
+            <div className="hero-image-wrapper reveal-up" style={{ '--delay': '0.4s' } as React.CSSProperties}>
                 <video className="hero-image" autoPlay muted loop playsInline key={videoUrl}>
                     <source src={videoUrl} type="video/mp4" />
                     Your browser does not support the video tag.
