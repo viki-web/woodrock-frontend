@@ -11,6 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://woodrockengineering.com"),
   title: "Woodrock Engineering | Precision Engineering & Design",
   description: "From post-frame to commercial builds, our engineering supports real projects designed to perform.",
 };

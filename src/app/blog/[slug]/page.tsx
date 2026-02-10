@@ -7,6 +7,16 @@ import { BlogPost } from "@/types";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
 import StrapiBlocks from "@/components/BlocksRenderer";
 
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+    const posts = await getBlogPosts();
+    if (!posts) return [];
+    return posts.map((post) => ({
+        slug: post.slug,
+    }));
+}
+
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;

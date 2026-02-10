@@ -6,6 +6,17 @@ import { getServiceBySlug } from "@/lib/api";
 import { Metadata } from 'next';
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
 import StrapiBlocks from "@/components/BlocksRenderer";
+import { getServices } from "@/lib/api";
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+    const services = await getServices();
+    if (!services) return [];
+    return services.map((service) => ({
+        slug: service.slug,
+    }));
+}
 
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
