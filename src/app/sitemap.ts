@@ -4,7 +4,8 @@ import { getServices, getBlogPosts } from '@/lib/api';
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://woodrockengineering.com';
+    const rawBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://woodrockengineering.com';
+    const baseUrl = rawBaseUrl.replace(/\/+$/, "");
 
     const services = await getServices();
     const blogPosts = await getBlogPosts();

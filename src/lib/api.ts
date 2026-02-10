@@ -1,6 +1,7 @@
 import { HomepageData, HeaderData, FooterData, Service, ExpertisePageData, DesignPageData, MarketPageData, AboutPageData, Project, PortfolioPageData, ContactPageData, BlogPost, BlogPageData } from "@/types";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+const rawBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+const baseUrl = rawBaseUrl.replace(/\/+$/, "");
 
 async function fetchData(endpoint: string) {
     const url = `${baseUrl}/api/${endpoint}`;
