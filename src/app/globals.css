@@ -2935,3 +2935,22 @@ body:not(:has(.subpage-hero)) header.site-header .main-nav a {
         padding: 140px 0 60px !important;
     }
 }
+
+/* Fix Mobile Menu Visiblity on Subpages */
+@media (max-width: 1024px) {
+
+    /* Force menu links to black when menu is open */
+    body:has(.subpage-hero) header.site-header .main-nav.active a {
+        color: #000 !important;
+    }
+
+    /* Force toggle to black when menu is open */
+    body:has(.subpage-hero) .mobile-toggle.active span {
+        background-color: #000 !important;
+    }
+
+    /* Ensure header stays on top even if absolute */
+    body:has(.subpage-hero) header.site-header {
+        z-index: 2000 !important;
+    }
+}

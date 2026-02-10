@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import SubpageHero from "@/components/SubpageHero";
 import { getServiceBySlug } from "@/lib/api";
 import { Metadata } from 'next';
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
@@ -30,21 +31,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <>
             <ScrollAnimations />
             <main>
-                <section className="detail-hero">
-                    <div className="container">
-                        <nav className="breadcrumb">
-                            <Link href="/">Home</Link> / <Link href="/expertise">Expertise</Link> / {service.title}
-                        </nav>
-                        <h1 className="detail-title reveal-up">
-                            {service.title.split(' ').map((word, i, arr) => (
-                                <React.Fragment key={i}>
-                                    {word}
-                                    {i < arr.length - 1 && <br />}
-                                </React.Fragment>
-                            ))}
-                        </h1>
-                    </div>
-                </section>
+                <SubpageHero
+                    title={service.title}
+                    description={service.short_description || ""}
+                    backgroundImage={service.banner_image?.url ? (service.banner_image.url.startsWith('http') ? service.banner_image.url : `${baseUrl}${service.banner_image.url}`) : (service.image?.url ? (service.image.url.startsWith('http') ? service.image.url : `${baseUrl}${service.image.url}`) : undefined)}
+                />
 
                 <section className="detail-content-section">
                     <div className="container">

@@ -8,7 +8,7 @@ async function fetchData(endpoint: string) {
 
     try {
         const res = await fetch(url, {
-            cache: "no-store",
+            next: { revalidate: 3600 }, // Revalidate every hour
             headers: {
                 'Content-Type': 'application/json',
             },
