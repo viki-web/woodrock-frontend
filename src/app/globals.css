@@ -2150,6 +2150,7 @@ body:not(:has(.subpage-hero)) header.site-header .main-nav a {
 .sticky-image img {
     width: 100%;
     border-radius: 4px;
+    height: auto;
 }
 
 /* About Page Specifics */

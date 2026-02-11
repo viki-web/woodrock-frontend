@@ -7,6 +7,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { HomepageData } from "@/types";
+import { getMediaUrl } from "@/lib/api";
 
 const TestimonialsSection = ({ data }: { data: HomepageData }) => {
     const prevRef = useRef(null);
@@ -18,7 +19,12 @@ const TestimonialsSection = ({ data }: { data: HomepageData }) => {
                 <div className="work-with-grid">
                     <div className="work-with-left">
                         <h2 className="section-title reveal-up">
-                            WHAT IT&apos;S LIKE<br />TO WORK WITH<br />WOODROCK
+                            {data.testimonial_heading?.split('\n').map((line: string, i: number) => (
+                                <React.Fragment key={i}>
+                                    {line}
+                                    {i < data.testimonial_heading.split('\n').length - 1 && <br />}
+                                </React.Fragment>
+                            )) || <>WHAT IT&apos;S LIKE<br />TO WORK WITH<br />WOODROCK</>}
                         </h2>
                         <p className="section-desc reveal-up" style={{ '--delay': '0.1s' } as React.CSSProperties}>
                             Builders, contractors, and designers choose Woodrock because our drawings are clear,
@@ -78,7 +84,7 @@ const TestimonialsSection = ({ data }: { data: HomepageData }) => {
                                     <div className="testimonial-card">
                                         <div className="testimonial-img-box">
                                             <Image
-                                                src="/assets/images/construction_interior_testimonial_1770293774612.png"
+                                                src={getMediaUrl(t.project_image?.url, "/assets/images/construction_interior_testimonial_1770293774612.png")}
                                                 alt="Woodrock Project"
                                                 width={400}
                                                 height={500}
@@ -89,7 +95,7 @@ const TestimonialsSection = ({ data }: { data: HomepageData }) => {
                                             <div className="testimonial-user">
                                                 <div className="user-avatar">
                                                     <Image
-                                                        src="/assets/images/contractor_avatar_testimonial_1770293791242.png"
+                                                        src={getMediaUrl(t.author_avatar?.url, "/assets/images/contractor_avatar_testimonial_1770293791242.png")}
                                                         alt={t.author_name}
                                                         width={70}
                                                         height={70}

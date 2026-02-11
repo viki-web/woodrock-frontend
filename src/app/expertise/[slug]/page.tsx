@@ -2,11 +2,10 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageHero from "@/components/SubpageHero";
-import { getServiceBySlug } from "@/lib/api";
+import { getServiceBySlug, getServices, getMediaUrl } from "@/lib/api";
 import { Metadata } from 'next';
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
 import StrapiBlocks from "@/components/BlocksRenderer";
-import { getServices } from "@/lib/api";
 
 export const dynamicParams = false;
 
@@ -36,8 +35,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         return <div>Service not found</div>;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-
     return (
         <>
             <ScrollAnimations />
@@ -45,7 +42,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <SubpageHero
                     title={service.title}
                     description={service.short_description || ""}
-                    backgroundImage={service.banner_image?.url ? (service.banner_image.url.startsWith('http') ? service.banner_image.url : `${baseUrl}${service.banner_image.url}`) : (service.image?.url ? (service.image.url.startsWith('http') ? service.image.url : `${baseUrl}${service.image.url}`) : undefined)}
+                    backgroundImage={getMediaUrl(service.banner_image?.url || service.image?.url)}
                 />
 
                 <section className="detail-content-section">
@@ -62,19 +59,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                                 )}
                             </div>
 
-                            {service.banner_image?.url && (
-                                <div className="detail-image-col reveal-up" style={{ "--delay": "0.2s" } as React.CSSProperties}>
-                                    <div className="sticky-image">
-                                        <Image
-                                            src={service.banner_image.url.startsWith('http') ? service.banner_image.url : `${baseUrl}${service.banner_image.url}`}
-                                            alt={service.title}
-                                            width={800}
-                                            height={1000}
-                                        />
-                                        <div className="image-caption">High-Performance {service.title} Design</div>
-                                    </div>
+                            <div className="detail-image-col reveal-up" style={{ "--delay": "0.2s" } as React.CSSProperties}>
+                                <div className="sticky-image">
+                                    <Image
+                                        src={getMediaUrl(service.banner_image?.url || service.image?.url, "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop")}
+                                        alt={service.title}
+                                        width={800}
+                                        height={1000}
+                                    />
+                                    <div className="image-caption">High-Performance {service.title} Design</div>
                                 </div>
-                            )}
+                            </div>
                         </div>
                     </div>
                 </section>

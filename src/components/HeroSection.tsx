@@ -3,13 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import RevealUp from "./ui/RevealUp";
+import { getMediaUrl } from "@/lib/api";
 import { HomepageData } from "@/types";
 
 const HeroSection = ({ data }: { data: HomepageData }) => {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-    const videoUrl = data.hero_video?.url
-        ? (data.hero_video.url.startsWith('http') ? data.hero_video.url : `${baseUrl}${data.hero_video.url}`)
-        : "/assets/videos/construction.mp4";
+    const videoUrl = getMediaUrl(data.hero_video?.url, "/assets/videos/construction.mp4");
 
     return (
         <section className="hero-section">

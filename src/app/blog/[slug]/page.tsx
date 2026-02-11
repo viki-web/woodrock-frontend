@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getBlogPostBySlug, getBlogPosts } from "@/lib/api";
+import { getBlogPostBySlug, getBlogPosts, getMediaUrl } from "@/lib/api";
 import { Metadata } from 'next';
 import { BlogPost } from "@/types";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
@@ -38,17 +38,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         return <div className="container" style={{ padding: '200px 0', textAlign: 'center' }}>Post not found</div>;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-
     // Find the next post for the "Up Next" section
     const currentIndex = allPosts?.findIndex((p: BlogPost) => p.slug === post.slug) ?? -1;
     const nextPost = allPosts && currentIndex !== -1 && currentIndex < allPosts.length - 1
         ? allPosts[currentIndex + 1]
         : (allPosts && allPosts.length > 1 ? allPosts[0] : null);
 
-    const heroImage = post.image?.url
-        ? (post.image.url.startsWith('http') ? post.image.url : `${baseUrl}${post.image.url}`)
-        : 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=2070&auto=format&fit=crop';
+    const heroImage = getMediaUrl(post.image?.url, 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?q=80&w=2070&auto=format&fit=crop');
 
     return (
         <>

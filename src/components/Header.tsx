@@ -5,15 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { HeaderData } from "@/types";
+import { getMediaUrl } from "@/lib/api";
 
 const Header = ({ data }: { data?: HeaderData | null }) => {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const pathname = usePathname();
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-    const logoSrc = data?.logo?.url
-        ? (data.logo.url.startsWith('http') ? data.logo.url : `${baseUrl}${data.logo.url}`)
-        : "/assets/images/logo.png";
+    const logoSrc = getMediaUrl(data?.logo?.url, "/assets/images/logo.png");
 
     const navItems = data?.navigation || [
         { label: "Engineering", url: "/expertise" },

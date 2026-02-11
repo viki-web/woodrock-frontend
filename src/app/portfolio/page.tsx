@@ -3,7 +3,7 @@ import Image from "next/image";
 import SubpageHero from "@/components/SubpageHero";
 import CtaBannerSection from "@/components/CtaBannerSection";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
-import { getPortfolioPageData, getProjects, getHomepageData } from "@/lib/api";
+import { getPortfolioPageData, getProjects, getHomepageData, getMediaUrl } from "@/lib/api";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -22,8 +22,6 @@ export default async function PortfolioPage() {
         return <div>Loading...</div>;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-
     return (
         <>
             <ScrollAnimations />
@@ -31,7 +29,7 @@ export default async function PortfolioPage() {
                 <SubpageHero
                     title={pageData.hero_title}
                     description={pageData.hero_description}
-                    backgroundImage={pageData.hero_image?.url ? (pageData.hero_image.url.startsWith('http') ? pageData.hero_image.url : `${baseUrl}${pageData.hero_image.url}`) : undefined}
+                    backgroundImage={getMediaUrl(pageData.hero_image?.url)}
                 />
 
                 <section className="portfolio-listing-section">
@@ -41,7 +39,7 @@ export default async function PortfolioPage() {
                                 <div key={project.id} className="portfolio-item reveal-up" style={{ "--delay": `${(idx % 3) * 0.1}s` } as React.CSSProperties}>
                                     <div className="portfolio-image">
                                         <Image
-                                            src={project.image?.url ? (project.image.url.startsWith('http') ? project.image.url : `${baseUrl}${project.image.url}`) : "https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=2070&auto=format&fit=crop"}
+                                            src={getMediaUrl(project.image?.url, "https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=2070&auto=format&fit=crop")}
                                             alt={project.title}
                                             width={800}
                                             height={600}
@@ -91,7 +89,7 @@ export default async function PortfolioPage() {
                             </div>
                             <div className="about-image-col">
                                 <Image
-                                    src={pageData.methodology_image?.url ? (pageData.methodology_image.url.startsWith('http') ? pageData.methodology_image.url : `${baseUrl}${pageData.methodology_image.url}`) : "https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2070&auto=format&fit=crop"}
+                                    src={getMediaUrl(pageData.methodology_image?.url, "https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2070&auto=format&fit=crop")}
                                     alt="Methodology"
                                     width={800}
                                     height={1000}

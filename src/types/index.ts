@@ -51,13 +51,8 @@ export interface Testimonial {
     quote: string;
     author_name: string;
     author_role: string;
-    author_avatar?: {
-        data: {
-            attributes: {
-                url: string;
-            };
-        };
-    };
+    author_avatar?: { url: string };
+    project_image?: { url: string };
 }
 
 export interface Faq {
@@ -160,7 +155,10 @@ export interface HomepageData {
     stats_description: string;
     how_it_works_title: string;
     how_it_works_description: string;
+    how_it_works_video?: { url: string };
     projects_heading: string;
+    projects_image?: { url: string };
+    testimonial_heading: string;
     map_title: string;
     map_subtitle: string;
     marquee_line_1: string;

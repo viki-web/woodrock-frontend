@@ -2,13 +2,10 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FooterData } from "@/types";
+import { getMediaUrl } from "@/lib/api";
 
 const Footer = ({ data }: { data?: FooterData | null }) => {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-
-    const logoSrc = data?.logo?.url
-        ? (data.logo.url.startsWith('http') ? data.logo.url : `${baseUrl}${data.logo.url}`)
-        : "/assets/images/logo_footer.png";
+    const logoSrc = getMediaUrl(data?.logo?.url, "/assets/images/logo_footer.png");
 
     const quickLinks = data?.quick_links || [
         { label: "Engineering", url: "/expertise" },

@@ -2,8 +2,11 @@
 
 import React from "react";
 import { HomepageData } from "@/types";
+import { getMediaUrl } from "@/lib/api";
 
 const HowItWorksSection = ({ data }: { data: HomepageData }) => {
+    const videoUrl = getMediaUrl(data.how_it_works_video?.url, "/assets/videos/overlay.mp4");
+
     return (
         <section className="how-it-works-section">
             <div className="container">
@@ -14,8 +17,8 @@ const HowItWorksSection = ({ data }: { data: HomepageData }) => {
 
                 <div className="steps-grid-wrapper">
                     <div className="steps-video-bg">
-                        <video autoPlay muted loop playsInline>
-                            <source src="/assets/videos/overlay.mp4" type="video/mp4" />
+                        <video autoPlay muted loop playsInline key={videoUrl}>
+                            <source src={videoUrl} type="video/mp4" />
                         </video>
                     </div>
 

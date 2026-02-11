@@ -3,6 +3,12 @@ import { HomepageData, HeaderData, FooterData, Service, ExpertisePageData, Desig
 const rawBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
 const baseUrl = rawBaseUrl.replace(/\/+$/, "");
 
+export function getMediaUrl(url: string | undefined | null, fallback: string = ""): string {
+    if (!url) return fallback;
+    if (url.startsWith('http') || url.startsWith('//')) return url;
+    return `${baseUrl}${url}`;
+}
+
 async function fetchData(endpoint: string) {
     const url = `${baseUrl}/api/${endpoint}`;
     console.log("Fetching from:", url);

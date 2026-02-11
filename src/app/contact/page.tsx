@@ -2,7 +2,7 @@ import React from "react";
 import SubpageHero from "@/components/SubpageHero";
 import ContactForm from "@/components/ContactForm";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
-import { getContactPageData, getFooterData } from "@/lib/api";
+import { getContactPageData, getFooterData, getMediaUrl } from "@/lib/api";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -20,8 +20,6 @@ export default async function ContactPage() {
         return <div>Loading...</div>;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-
     return (
         <>
             <ScrollAnimations />
@@ -29,7 +27,7 @@ export default async function ContactPage() {
                 <SubpageHero
                     title={pageData.hero_title}
                     description={pageData.hero_description}
-                    backgroundImage={pageData.hero_image?.url ? (pageData.hero_image.url.startsWith('http') ? pageData.hero_image.url : `${baseUrl}${pageData.hero_image.url}`) : undefined}
+                    backgroundImage={getMediaUrl(pageData.hero_image?.url)}
                 />
 
                 <section className="contact-hero-section">

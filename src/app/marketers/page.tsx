@@ -5,7 +5,7 @@ import SubpageHero from "@/components/SubpageHero";
 import LicensingMapSection from "@/components/LicensingMapSection";
 import CtaBannerSection from "@/components/CtaBannerSection";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
-import { getMarketPageData, getServices, getHomepageData } from "@/lib/api";
+import { getMarketPageData, getServices, getHomepageData, getMediaUrl } from "@/lib/api";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -24,8 +24,6 @@ export default async function MarketersPage() {
         return <div>Loading...</div>;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-
     return (
         <>
             <ScrollAnimations />
@@ -33,7 +31,7 @@ export default async function MarketersPage() {
                 <SubpageHero
                     title={pageData.hero_title}
                     description={pageData.hero_description}
-                    backgroundImage={pageData.hero_image?.url ? (pageData.hero_image.url.startsWith('http') ? pageData.hero_image.url : `${baseUrl}${pageData.hero_image.url}`) : undefined}
+                    backgroundImage={getMediaUrl(pageData.hero_image?.url)}
                 />
 
                 <section className="services-listing-section">

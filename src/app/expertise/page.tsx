@@ -5,7 +5,7 @@ import SubpageHero from "@/components/SubpageHero";
 import FAQSection from "@/components/FaqSection";
 import CtaBannerSection from "@/components/CtaBannerSection";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
-import { getExpertisePageData, getServices, getHomepageData } from "@/lib/api";
+import { getExpertisePageData, getServices, getHomepageData, getMediaUrl } from "@/lib/api";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -24,8 +24,6 @@ export default async function ExpertisePage() {
         return <div>Loading...</div>;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-
     return (
         <>
             <ScrollAnimations />
@@ -33,7 +31,7 @@ export default async function ExpertisePage() {
                 <SubpageHero
                     title={pageData.hero_title}
                     description={pageData.hero_description}
-                    backgroundImage={pageData.hero_image?.url ? (pageData.hero_image.url.startsWith('http') ? pageData.hero_image.url : `${baseUrl}${pageData.hero_image.url}`) : undefined}
+                    backgroundImage={getMediaUrl(pageData.hero_image?.url)}
                 />
 
                 <section className="services-listing-section">
@@ -41,17 +39,15 @@ export default async function ExpertisePage() {
                         <div className="services-grid">
                             {services.map((service, idx) => (
                                 <div key={service.documentId} className="service-card reveal-up" style={{ "--delay": `${(idx % 3) * 0.1}s` } as React.CSSProperties}>
-                                    {service.image?.url && (
-                                        <div className="service-image">
-                                            <Image
-                                                src={service.image.url.startsWith('http') ? service.image.url : `${baseUrl}${service.image.url}`}
-                                                alt={service.title}
-                                                width={600}
-                                                height={400}
-                                            />
-                                        </div>
-                                    )}
-                                    <div className={`service-info ${!service.image?.url ? 'no-img' : ''}`}>
+                                    <div className="service-image">
+                                        <Image
+                                            src={getMediaUrl(service.image?.url, "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop")}
+                                            alt={service.title}
+                                            width={600}
+                                            height={400}
+                                        />
+                                    </div>
+                                    <div className="service-info">
                                         <h2 className="service-title">{service.title}</h2>
                                         <p className="service-text">{service.short_description}</p>
                                         <Link href={`/expertise/${service.slug}`} className="service-link">

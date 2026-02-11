@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { HomepageData } from "@/types";
+import { getMediaUrl } from "@/lib/api";
 
 const ProjectsSection = ({ data }: { data: HomepageData }) => {
     return (
@@ -32,7 +33,7 @@ const ProjectsSection = ({ data }: { data: HomepageData }) => {
                 </div>
                 <div className="projects-image reveal-up" style={{ '--delay': '0.2s' } as React.CSSProperties}>
                     <Image
-                        src="/assets/images/project_barn.jpg"
+                        src={getMediaUrl(data.projects_image?.url, "/assets/images/project_barn.jpg")}
                         alt="Featured Project"
                         width={800}
                         height={600}

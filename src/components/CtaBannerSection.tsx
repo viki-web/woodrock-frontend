@@ -1,13 +1,11 @@
 "use client";
 
 import React from "react";
+import { getMediaUrl } from "@/lib/api";
 import { HomepageData } from "@/types";
 
 const CtaBannerSection = ({ data }: { data: HomepageData }) => {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-    const bgImage = data?.cta_background?.url
-        ? (data.cta_background.url.startsWith('http') ? data.cta_background.url : `${baseUrl}${data.cta_background.url}`)
-        : "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop";
+    const bgImage = getMediaUrl(data?.cta_background?.url, "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop");
 
     return (
         <section className="cta-banner-section reveal-up">
